@@ -1,17 +1,23 @@
 import { Composer } from "grammy";
+import type { Ctx } from "../bot.js";
+import { registerMainMenuItem, inlineButton, inlineKeyboard } from "../toolkit/index.js";
+import { SEED_FABLES } from "../fables.js";
+import { CATEGORIES } from "../types.js";
 
-// SCAFFOLD — generated from the bot blueprint BEFORE the agent runs.
-// Keep a LIVE registration (.command / .callbackQuery / …) so this feature is
-// never an empty stub. Replace the reply body with real logic + copy; if you
-// change the user-facing text, update tests/specs to match EXACTLY.
-// Do NOT rewrite src/bot.ts — buildBot() already auto-loads this module.
-// Menu: wire this into /start via registerMainMenuItem({ label: "Random Fable", data: "fable:random" }) if the toolkit exposes it.
+registerMainMenuItem({ label: "🎲 Random fable", data: "fable:random", order: 20 });
 
-const composer = new Composer();
+const composer = new Composer<Ctx>();
 
 composer.callbackQuery("fable:random", async (ctx) => {
   await ctx.answerCallbackQuery();
-  await ctx.reply("Instantly receive a random full fable");
+  const fable = SEED_FABLES[Math.floor(Math.random() * SEED_FABLES.length)];
+  const tagLabels = fable.tags.map((t) => CATEGORIES.find((c) => c.tag === t)?.label ?? t).join(", ");
+  const text = `${fable.title}\nby ${fable.author}\n\n${fable.text}\n\n—\nLength: ${fable.length} | Ages: ${fable.ageSuitability} | Themes: ${tagLabels}`;
+  const keyboard = inlineKeyboard([
+    [inlineButton("🎲 Another random fable", "fable:random")],
+    [inlineButton("⬅️ Back to menu", "menu:main")],
+  ]);
+  await ctx.reply(text, { reply_markup: keyboard });
 });
 
 export default composer;

@@ -1,19 +1,12 @@
 [
   {
-    "name": "Browse",
+    "name": "Browse categories shows theme list",
     "steps": [
       {
+        "send": { "callback": "browse:categories" },
         "expect": [
-          {
-            "method": "sendMessage",
-            "payload": {
-              "text": "View fables by 8+ thematic categories"
-            }
-          }
-        ],
-        "send": {
-          "callback": "browse:categories"
-        }
+          { "method": "sendMessage", "payload": { "text": "Pick a theme to explore:" } }
+        ]
       }
     ]
   }

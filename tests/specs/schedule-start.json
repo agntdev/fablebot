@@ -1,19 +1,12 @@
 [
   {
-    "name": "Subscribe",
+    "name": "Subscribe flow asks for cadence",
     "steps": [
       {
+        "send": { "callback": "schedule:start" },
         "expect": [
-          {
-            "method": "sendMessage",
-            "payload": {
-              "text": "Configure daily/weekly fable delivery"
-            }
-          }
-        ],
-        "send": {
-          "callback": "schedule:start"
-        }
+          { "method": "sendMessage", "payload": { "text": "How often would you like a fable delivered?" } }
+        ]
       }
     ]
   }
