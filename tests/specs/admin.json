@@ -1,19 +1,12 @@
 [
   {
-    "name": "/admin",
+    "name": "/admin shows admin tools",
     "steps": [
       {
+        "send": { "text": "/admin" },
         "expect": [
-          {
-            "method": "sendMessage",
-            "payload": {
-              "text": "Access moderation and curation tools"
-            }
-          }
-        ],
-        "send": {
-          "text": "/admin"
-        }
+          { "method": "sendMessage", "payload": { "text": "Admin tools — pick what you need:" } }
+        ]
       }
     ]
   }
