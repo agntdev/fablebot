@@ -1,0 +1,20 @@
+[
+  {
+    "name": "Random Fable",
+    "steps": [
+      {
+        "expect": [
+          {
+            "method": "sendMessage",
+            "payload": {
+              "text": "Instantly receive a random full fable"
+            }
+          }
+        ],
+        "send": {
+          "callback": "fable:random"
+        }
+      }
+    ]
+  }
+]
